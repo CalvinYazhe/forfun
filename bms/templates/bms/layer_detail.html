@@ -1,0 +1,36 @@
+{% extends "bms/server_list.html" %}
+
+{% block server_list %}
+<h1>{{ server_list.LayerName }}</h1>
+<form action="/bms/layer_add_server/{{ server_list.id }}" method="get"><input type="submit" value="Add Server" /></form>
+<table id="server_list" name="server_list">
+	<th>HostName</th>
+	<th>WlanAddress</th>
+	<th>LanAddress</th>
+	<th>UseFor</th>
+	<th>Moniter</th>
+    {% for server in server_list.server_set.all %}
+    <tr>
+    	<form action="/bms/api/" method="post" target="_blank">{% csrf_token %}
+        <td class="detail"><a href="/bms/server_detail/{{ server.id }}">{{ server.ServerName }}</a></td>
+        <td><input type="hidden" name="WlanAddress" value="{{ server.WlanAddress }}">{{ server.WlanAddress }}</td>
+		<td><input type="hidden" name="LanAddress" value="{{ server.LanAddress }}">{{ server.LanAddress }}</td>
+		<td>{{ server.UseFor }}</td>
+		<td><button class="get_message" type="submit">Get Message</button></td>
+		</form>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+{% block layer_list %}
+	{% for layer in Layer_list %}
+	<li><a href="/bms/detail/{{ layer.id }}">{{ layer }}</a></li>
+	{% endfor %}
+{% endblock %}
+<!--
+<h1>{{ layer.LayerName }}</h1>
+{% for server in layer.server_set.all %}
+	<p>Server: {{ server }}</p>
+{% endfor %}
+-->

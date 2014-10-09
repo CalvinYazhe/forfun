@@ -1,0 +1,24 @@
+{% extends "bms/base.html" %}
+{% block server_list %}
+</br>
+<table id="server_list" name="server_list">
+	<th>HostName</th>
+	<th>WlanAddress</th>
+	<th>LanAddress</th>
+	<th>UseFor</th>
+    {% for server in Server_list %}
+    <tr>
+        <td>{{ server.ServerName }}</td>
+        <td>{{ server.WlanAddress }}</td>
+		<td>{{ server.LanAddress }}</td>
+		<td>{{ server.UseFor }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+{% block layer_list %}
+	{% for layer in Layer_list %}
+	<li><a href="/bms/detail/{{ layer.id }}">{{ layer }}</a></li>
+	{% endfor %}
+{% endblock %}
